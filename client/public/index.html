@@ -24,11 +24,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script defer src="../src/Chat.js"></script>
     <title>React App</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,5 +41,13 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+     <!-- Ventana emergente y fondo oscurecido -->
+     <div class="overlay" onclick="hidePopup()"></div>
+     <div class="popup">
+       <h2>Ingresa el Bolt11 del pago</h2>
+         <input type="text" id="f11" placeholder="bolt11" required>
+         <button id="enviar" type="button" onclick="sentPayment()">Enviar</button>
+         <button id="Cerrar" onclick="hidePopup()">Cerrar</button>
+     </div>
   </body>
 </html>
