@@ -4,7 +4,8 @@
   background-color: #263238;
   color: white;
   top: 50px;
- 
+  border-style: none;
+  border: solid white ;
 }
 
  .bolt{
