@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 
-function Conversations() {
+function Conversations({ socket }) {
+    const [messageList, setMessageList] = useState([]);
     return (
+
         <div class="app-left">
             <div class="app-left-header">
                 <div class="app-logo">
@@ -61,7 +63,7 @@ function Conversations() {
             </div>
             <div class="chat-list-wrapper">
                 <div class="chat-list-header">
-                    Active Conversations <span class="c-number">4</span>
+                    Active Users <span class="c-number">4</span>
                     <svg
                         class="list-header-arrow"
                         xmlns="http://www.w3.org/2000/svg"
@@ -114,50 +116,6 @@ function Conversations() {
                             alt="chat"
                         />
                         <span class="chat-list-name">Jim Halpert</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="chat-list-wrapper">
-                <div class="chat-list-header active">
-                    Achived Conversations <span class="c-number">3</span>
-                    <svg
-                        class="list-header-arrow"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="3"
-                        className="feather feather-chevron-up"
-                        viewBox="0 0 24 24"
-                    >
-                        <defs />
-                        <path d="M18 15l-6-6-6 6" />
-                    </svg>
-                </div>
-                <ul class="chat-list">
-                    <li class="chat-list-item">
-                        <img
-                            src="https://images.unsplash.com/photo-1542042457485-a4c7afd74cd5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1270&q=80"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">Toby Flenderson</span>
-                    </li>
-                    <li class="chat-list-item">
-                        <img
-                            src="https://images.unsplash.com/photo-1477118476589-bff2c5c4cfbb?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjV8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">Kelly Kapoor</span>
-                    </li>
-                    <li class="chat-list-item">
-                        <img
-                            src="https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">Roy Andersson</span>
                     </li>
                 </ul>
             </div>

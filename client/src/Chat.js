@@ -52,8 +52,8 @@ function Chat({ socket, username, room }) {
   }, [socket]);
 
   return (
-    <div class="app-main">
-      <div class="chat-wrapper">
+    <div className="app-main">
+      <div className="chat-wrapper">
         <ScrollToBottom>
           {messageList.map((messageContent) => {
             return (
@@ -82,8 +82,8 @@ function Chat({ socket, username, room }) {
         </ScrollToBottom>
 
       </div>
-      <div class="chat-input-wrapper">
-        <button class="chat-attachment-btn">
+      <div className="chat-input-wrapper">
+        <button className="chat-attachment-btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -93,7 +93,7 @@ function Chat({ socket, username, room }) {
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            class="feather feather-paperclip"
+            className="feather feather-paperclip"
             viewBox="0 0 24 24"
           >
             <defs />
@@ -102,10 +102,10 @@ function Chat({ socket, username, room }) {
             />
           </svg>
         </button>
-        <div class="input-wrapper">
+        <div className="input-wrapper">
           <input
             type="text"
-            class="chat-input"
+            className="chat-input"
             placeholder="Enter your message here"
             value={currentMessage}
             onChange={(event) => {
@@ -126,7 +126,7 @@ function Chat({ socket, username, room }) {
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              class="feather feather-smile"
+              className="feather feather-smile"
               viewBox="0 0 24 24"
             >
               <defs />
