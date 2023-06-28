@@ -9,7 +9,7 @@ function hidePopup() {
   document.querySelector('.popup').style.display = 'none';
   document.querySelector('.Mostrar').style.display = 'none';
 }
-
+//Enviar el pago
 async function sentPayment(){
   var cond = ""
   if (typeof window.webln === "undefined") {
@@ -28,6 +28,7 @@ async function sentPayment(){
   }
   cond = "";
 }
+//esto para pagar con la public Key
 
 async function keySend(){
   var pubkey = document.getElementById('pubkey').value;
