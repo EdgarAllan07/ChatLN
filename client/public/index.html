@@ -50,6 +50,14 @@
          <button id="enviar" type="button" onclick="sentPayment()">Enviar</button>
          <button id="Cerrar" onclick="hidePopup()">Cerrar</button>
      </div>
+     
+     <div class="Mostrar">
+      <h2>Ingresa el Pubkey del beneficiario</h2>
+        <input type="text" id="pubkey" placeholder="PubKey" required>
+        <input type="text" id="cantidad" placeholder="Cantidad de satoshis a enviar" required>
+        <button id="enviar" type="button" onclick="keySend()" >Enviar</button>
+        <button id="Cerrar" onclick="hidePopup()">Cerrar</button>
+    </div>
      <script src="code.js"></script>
   </body>
 </html>

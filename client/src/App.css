@@ -5,10 +5,19 @@
   color: white;
   top: 50px;
   border-style: none;
-  border: solid white ;
+  border: solid white;
+  border-width: .15rem;
+  padding: .3rem;
+}
+.boton:hover{
+  background-color: white;
+  color: #263238;
+}
+ .bolt{
+  margin-right: .5rem;
 }
 
- .bolt{
+.pay{
   margin-right: .5rem;
 }
 /*Estilos de la APP*/
@@ -131,7 +140,7 @@ body {
 .chat-window .chat-body .message .message-content {
   width: auto;
   height: auto;
-  /*min-height: 40px;*/
+  min-height: 40px;
   max-width: 250px;
   background-color: #43a047;
   border-radius: 5px;

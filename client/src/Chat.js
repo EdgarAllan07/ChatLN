@@ -7,7 +7,11 @@ import ScrollToBottom from "react-scroll-to-bottom";
     document.querySelector('.popup').style.display = 'block';
   }
 
-  // Función para ocultar la ventana emergente
+  const showUp = ()=> {
+    document.querySelector('.overlay').style.display = 'block';
+    document.querySelector('.Mostrar').style.display = 'block';
+  }
+  
   
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -52,6 +56,7 @@ function Chat({ socket, username, room }) {
         <p>Live Chat</p>
           <button className="boton bolt" type="button" onClick={createInvoice}>Invoice</button>
           <button onClick={showPopup} className="boton pay" type="button">Pay</button>
+          <button onClick={showUp} className="boton pubkey" type="button"> PubKey</button>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
