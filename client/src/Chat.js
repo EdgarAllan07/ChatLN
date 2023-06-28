@@ -2,20 +2,13 @@ import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
    // Función para mostrar la ventana emergente
-   function showPopup() {
+   const showPopup = () =>{
     document.querySelector('.overlay').style.display = 'block';
     document.querySelector('.popup').style.display = 'block';
   }
 
   // Función para ocultar la ventana emergente
-  function hidePopup() {
-    document.querySelector('.overlay').style.display = 'none';
-    document.querySelector('.popup').style.display = 'none';
-   // document.querySelector('.Mostrar').style.display = 'none';
-  }
-
   
-
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -57,8 +50,8 @@ function Chat({ socket, username, room }) {
     <div className="chat-window">
       <div className="chat-header">
         <p>Live Chat</p>
-          <button className="boton" type="button" onClick={createInvoice}>Invoice</button>
-          <button onClick={showPopup()} className="boton1" type="button">Pay</button>
+          <button className="boton bolt" type="button" onClick={createInvoice}>Invoice</button>
+          <button onClick={showPopup} className="boton pay" type="button">Pay</button>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">

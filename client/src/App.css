@@ -1,3 +1,16 @@
+/*Mis estilos CSS*/
+.boton{
+  cursor: pointer;
+  background-color: #263238;
+  color: white;
+  top: 50px;
+ 
+}
+
+ .bolt{
+  margin-right: .5rem;
+}
+/*Estilos de la APP*/
 .App {
   width: 100vw;
   height: 100vh;
@@ -28,6 +41,16 @@ body {
 }
 .joinChatContainer input {
   width: 210px;
+  height: 40px;
+  margin: 7px;
+  border: 2px solid #43a047;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+#room{
+  width: 223px;
   height: 40px;
   margin: 7px;
   border: 2px solid #43a047;
@@ -80,13 +103,6 @@ body {
   line-height: 45px;
 }
 
-.boton{
-  cursor: pointer;
-  background-color: #263238;
-  color: white;
-  top: 50px;
-}
-
 .chat-window .chat-body {
   height: calc(450px - (45px + 70px));
   border: 1px solid #263238;
@@ -114,8 +130,8 @@ body {
 .chat-window .chat-body .message .message-content {
   width: auto;
   height: auto;
-  /*min-height: 1rem;*/
-  max-width: 120px;
+  /*min-height: 40px;*/
+  max-width: 250px;
   background-color: #43a047;
   border-radius: 5px;
   color: white;
@@ -127,10 +143,7 @@ body {
   padding-left: 5px;
   overflow-wrap: break-word;
   word-break: break-word;
-  max-height: 4rem;
   overflow: auto;
-  
-  white-space: nowrap;
 }
 
 #you {
