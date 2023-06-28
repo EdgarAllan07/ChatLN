@@ -43,18 +43,19 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
      <!-- Ventana emergente y fondo oscurecido -->
+   
      <div class="overlay" onclick="hidePopup()"></div>
      <div class="popup">
        <h2>Ingresa el Bolt11 del pago</h2>
-         <input type="text" id="f11" placeholder="bolt11" required>
+         <input type="text" id="f11" placeholder="  EJ:lnbcrt500u1pjfh90wpp5cmk5fpxr0aav037mz5nnxg0phz" required>
          <button id="enviar" type="button" onclick="sentPayment()">Enviar</button>
          <button id="Cerrar" onclick="hidePopup()">Cerrar</button>
      </div>
-     
+
      <div class="Mostrar">
       <h2>Ingresa el Pubkey del beneficiario</h2>
         <input type="text" id="pubkey" placeholder="PubKey" required>
-        <input type="text" id="cantidad" placeholder="Cantidad de satoshis a enviar" required>
+        <input type="text" id="cantidad" placeholder="Cantidad de satoshis" required>
         <button id="enviar" type="button" onclick="keySend()" >Enviar</button>
         <button id="Cerrar" onclick="hidePopup()">Cerrar</button>
     </div>

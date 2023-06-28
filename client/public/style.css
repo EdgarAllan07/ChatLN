@@ -1,18 +1,51 @@
  /* Estilos para la ventana emergente */
+ *{
+  font-family: sans-serif;
+ }
+
+ .verify{
+  display: block;
+  width: 100px;
+  height: 100px;
+ }
  .popup {
+  /*none*/
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
-  padding: 20px;
+  padding: 30px;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 9999;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
+.popup input{
+  display: block;
+  width: 90%;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.popup button{
+  cursor: pointer;
+  border-style: none;
+  color: black;
+  border:solid 0.1rem black;
+  background-color: white;
+  padding: .5rem;
+}
+
+.popup button:hover{
+  background-color: black;
+  color: white;
+}
 .Mostrar {
   display: none;
   position: fixed;
@@ -27,7 +60,26 @@
   z-index: 9999;
 }
 
+.Mostrar input{
+  display: block;
+  width: 90%;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
 
+.Mostrar button{
+  cursor: pointer;
+  border-style: none;
+  color: black;
+  border:solid 0.1rem black;
+  background-color: white;
+  padding: .5rem;
+}
+
+.Mostrar button:hover{
+  background-color: black;
+  color: white;
+}
 /* Estilos para el fondo oscurecido detrás de la ventana emergente */
 .overlay {
   display: none;
