@@ -3,6 +3,27 @@
   font-family: sans-serif;
  }
 
+ .cuadro-texto{
+  display: none;
+  position: fixed;
+  top: 45%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 1rem;
+  height: 300px;
+  background-color:#1E3050 ;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px;
+  transition: 0.5s;
+  overflow: hidden;
+ 
+ }
+
+ .cuadro-texto.active{
+  display: block;
+ }
  .verify{
   display: flex;
   width: 100px;
@@ -92,6 +113,47 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9998;
+}
+
+.toggle{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  display: flex;
+  top: 8%;
+  left: 13%;
+  background-color:#1E3050;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: .2rem;
+  cursor: pointer;
+  border: solid 2px black;
+}
+
+.toggle:hover{
+  transition: 0.1s;
+  background-color: white;
+ 
+}
+
+ul{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+li{
+  color: white;
+  text-overflow: ellipsis;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  padding-top: 2rem;
+}
+
+li:last-child{
+  padding-bottom: none;
 }
 
 

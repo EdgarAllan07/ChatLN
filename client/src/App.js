@@ -4,7 +4,7 @@ import { useState } from "react";
 import Chat from "./Chat";
 
 const socket = io.connect("http://localhost:3001");
-
+ export var nombre, rm ;
 function App() {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
@@ -15,6 +15,8 @@ function App() {
       socket.emit("join_room", room);
       setShowChat(true);
     }
+    nombre= username;
+    rm = room;
   };
 
   return (
@@ -23,6 +25,7 @@ function App() {
         <div className="joinChatContainer">
           <h3>Join A Chat</h3>
           <input
+          id='name'
             type="text"
             placeholder="John..."
             onChange={(event) => {
@@ -46,6 +49,7 @@ function App() {
       )}
     </div>
   );
+
 }
 
 export default App;

@@ -1,3 +1,9 @@
+var toggle = document.querySelector('.toggle')
+var cuadro = document.querySelector(".cuadro-texto")
+toggle.onclick=function(){
+  cuadro.style.display = 'block'
+}
+
 function hidePopup() {
   document.querySelector('.overlay').style.display = 'none';
   document.querySelector('.popup').style.display = 'none';
