@@ -1,14 +1,12 @@
- /* Estilos para la ventana emergente */
- *{
-  font-family: sans-serif;
- }
+/* Estilos para la ventana emergente */
 
- .verify{
+.verify {
   display: block;
   width: 100px;
   height: 100px;
- }
- .popup {
+}
+
+.popup {
   /*none*/
   display: none;
   position: fixed;
@@ -26,26 +24,27 @@
   justify-content: center;
 }
 
-.popup input{
+.popup input {
   display: block;
   width: 90%;
   height: 2rem;
   margin-bottom: 1rem;
 }
 
-.popup button{
+.popup button {
   cursor: pointer;
   border-style: none;
   color: black;
-  border:solid 0.1rem black;
+  border: solid 0.1rem black;
   background-color: white;
   padding: .5rem;
 }
 
-.popup button:hover{
+.popup button:hover {
   background-color: black;
   color: white;
 }
+
 .Mostrar {
   display: none;
   position: fixed;
@@ -60,26 +59,27 @@
   z-index: 9999;
 }
 
-.Mostrar input{
+.Mostrar input {
   display: block;
   width: 90%;
   height: 2rem;
   margin-bottom: 1rem;
 }
 
-.Mostrar button{
+.Mostrar button {
   cursor: pointer;
   border-style: none;
   color: black;
-  border:solid 0.1rem black;
+  border: solid 0.1rem black;
   background-color: white;
   padding: .5rem;
 }
 
-.Mostrar button:hover{
+.Mostrar button:hover {
   background-color: black;
   color: white;
 }
+
 /* Estilos para el fondo oscurecido detrás de la ventana emergente */
 .overlay {
   display: none;
@@ -91,6 +91,3 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9998;
 }
-
-
-

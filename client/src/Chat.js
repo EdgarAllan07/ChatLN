@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import './index.scss';
 
-   // Función para mostrar la ventana emergente
-   const showPopup = () =>{
-    document.querySelector('.overlay').style.display = 'block';
-    document.querySelector('.popup').style.display = 'block';
-  }
+// Función para mostrar la ventana emergente
+const showPopup = () => {
+  document.querySelector('.overlay').style.display = 'block';
+  document.querySelector('.popup').style.display = 'block';
+}
 
-  const showUp = ()=> {
-    document.querySelector('.overlay').style.display = 'block';
-    document.querySelector('.Mostrar').style.display = 'block';
-  }
-  
-  
+const showUp = () => {
+  document.querySelector('.overlay').style.display = 'block';
+  document.querySelector('.Mostrar').style.display = 'block';
+}
+
+
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -35,14 +36,14 @@ function Chat({ socket, username, room }) {
     }
   };
   //Creando el bolt11 de pago
-  const createInvoice = async ()=>{
+  const createInvoice = async () => {
     await window.webln.enable();
     const invoice = await window.webln.makeInvoice({
       amount: "",
     });
-      setCurrentMessage(invoice.paymentRequest)
-      
-    }
+    setCurrentMessage(invoice.paymentRequest)
+
+  }
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
@@ -51,51 +52,93 @@ function Chat({ socket, username, room }) {
   }, [socket]);
 
   return (
-    <div className="chat-window">
-      <div className="chat-header">
-        <p>Live Chat</p>
-          <button className="boton bolt" type="button" onClick={createInvoice}>Invoice</button>
-          <button onClick={showPopup} className="boton pay" type="button">Pay</button>
-          <button onClick={showUp} className="boton pubkey" type="button"> PubKey</button>
-      </div>
-      <div className="chat-body">
-        <ScrollToBottom className="message-container">
+    <div class="app-main">
+      <div class="chat-wrapper">
+        <ScrollToBottom>
           {messageList.map((messageContent) => {
             return (
-              <div
-                className="message"
+              <div className={username === messageContent.author ? "message-wrapper" : "message-wrapper reverse"}
                 id={username === messageContent.author ? "you" : "other"}
               >
-                <div>
-                  <div className="message-content">
-                    <p>{messageContent.message}</p>
+                <img
+                  className="message-pp"
+                  src="https://images.unsplash.com/photo-1587080266227-677cc2a4e76e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80"
+                  alt="profile-pic"
+                />
+                <div className="message-box-wrapper">
+                  <span className="message-box-details">
+                    <p>{messageContent.author}</p>
+                  </span>
+                  <div className="message-box">
+                    {messageContent.message}
                   </div>
-                  <div className="message-meta">
-                    <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
-                  </div>
+                  <span className="message-box-details">
+                    <p>{messageContent.time}</p>
+                  </span>
                 </div>
               </div>
             );
           })}
         </ScrollToBottom>
+
       </div>
-      <div className="chat-footer">
-        <input
-          type="text"
-          value={currentMessage}
-          placeholder="Hey..."
-          onChange={(event) => {
-            setCurrentMessage(event.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
-          }}
-          id="texto"
-        />
-        <button onClick={sendMessage}>&#9658;</button>
+      <div class="chat-input-wrapper">
+        <button class="chat-attachment-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="feather feather-paperclip"
+            viewBox="0 0 24 24"
+          >
+            <defs />
+            <path
+              d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"
+            />
+          </svg>
+        </button>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            class="chat-input"
+            placeholder="Enter your message here"
+            value={currentMessage}
+            onChange={(event) => {
+              setCurrentMessage(event.target.value);
+            }}
+            onKeyPress={(event) => {
+              event.key === "Enter" && sendMessage();
+            }}
+            id="texto"
+          />
+          <button className="emoji-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              class="feather feather-smile"
+              viewBox="0 0 24 24"
+            >
+              <defs />
+              <circle cx="12" cy="12" r="10" />
+              <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+            </svg>
+          </button>
+        </div>
+        <button className="chat-send-btn" onClick={sendMessage}>Send</button>
       </div>
     </div>
+
   );
 }
 

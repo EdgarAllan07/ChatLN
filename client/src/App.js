@@ -1,7 +1,9 @@
-import "./App.css";
+import "./index.scss";
 import io from "socket.io-client";
 import { useState } from "react";
 import Chat from "./Chat";
+import Conversations from "./Conversations";
+import Operations from "./Operations";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -18,10 +20,11 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
+
       {!showChat ? (
         <div className="joinChatContainer">
-          <h3>Join A Chat</h3>
+          <h3>Join a chat</h3>
           <input
             type="text"
             placeholder="John..."
@@ -29,10 +32,10 @@ function App() {
               setUsername(event.target.value);
             }}
           />
-          
-          <select  onChange={(event) => {
-              setRoom(event.target.value);
-            }} id="room">
+
+          <select onChange={(event) => {
+            setRoom(event.target.value);
+          }} id="room">
             <option disabled selected>Room ID...</option>
             <option value={1}>1</option>
             <option value={2}>2</option>
@@ -42,9 +45,14 @@ function App() {
           <button onClick={joinRoom}>Join A Room</button>
         </div>
       ) : (
-        <Chat socket={socket} username={username} room={room} />
-      )}
-    </div>
+        <div className="app-container">
+          <Conversations username={username} />
+          <Chat socket={socket} username={username} room={room} Style="height: 80%" />
+          <Operations />
+        </div>
+      )
+      }
+    </div >
   );
 }
 
