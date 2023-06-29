@@ -942,6 +942,9 @@ body {
     display: block;
 }
 
+.active.display-none {
+    display: none;
+  }
 .cuadro-texto ul {
     list-style: none;
     margin: 2px;
