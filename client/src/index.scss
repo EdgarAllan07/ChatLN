@@ -540,7 +540,7 @@ body {
     font-size: 12px;
     line-height: 16px;
     width: auto;
-    max-width: 80%;
+    max-width: 100%;
     color: var(--text-dark);
     white-space: initial;
 
@@ -918,4 +918,35 @@ body {
     .app-main {
         height: calc(100% - 48px);
     }
+}
+
+.cuadro-texto{
+    position: fixed;
+    display: none;
+        color: white;
+        width: 250px;
+        height: 135px;
+    bottom: 300px;
+    z-index:100;
+    border: 1px solid var(--box-border);
+    background-color: var(--box-color);
+    text-align: center;
+    justify-content: center;
+    padding-top: .5rem ;
+    padding-bottom: .5rem ;
+    border-radius: 10px;
+}
+
+.cuadro-texto.active{
+    display: block;
+}
+
+.cuadro-texto ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cuadro-texto ul li:last-child{
+    overflow: scroll;
 }

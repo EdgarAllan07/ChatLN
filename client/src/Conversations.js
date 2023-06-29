@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
+import { rm } from "./App"
 
-function Conversations({ username, socket, room }) {
+function Conversations({ username, socket,room }) {
     const [messageList, setMessageList] = useState([]);
     const [userList, setUserList] = useState([]);
 
@@ -41,14 +42,21 @@ function Conversations({ username, socket, room }) {
                 <h1>QuickChat</h1>
             </div>
             <div class="app-profile-box">
-                <img
-                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
-                    alt="profile"
-                />
+               
+            <img src="https://api-private.atlassian.com/users/2dff6b099a5ac2f4baab1bb770899247/avatar"/>
                 <div class="app-profile-box-name">
                     {username}
 
                 </div>
+                <button class="btn btn-primary" onClick={Cuadro}><i class="fa-solid fa-circle-info fa-lg"></i></button>
+                <div class="cuadro-texto">
+            <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
             </div>
             <div class="chat-list-wrapper">
                 <div class="chat-list-header">

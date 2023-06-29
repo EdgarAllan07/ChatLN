@@ -5,7 +5,7 @@ import './index.scss';
 import { DropdownItem, DropdownMenu, UncontrolledDropdown, DropdownToggle } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { nombre } from "./App"
-import { rm } from "./App"
+
 
 // Función para mostrar la ventana emergente
 const showPopup = () => {
@@ -67,9 +67,10 @@ function Chat({ socket, username, room }) {
     var cuadro = document.querySelector(".cuadro-texto")
     cuadro.classList.toggle("active");
 
-    // Creando el getInfo o la informacion del nodo junto con el usuario y numero de room
+    //Creando el getInfo o la informacion del nodo junto con el usuario y numeor de room
     async function getInformation() {
       const listaElementos = document.querySelectorAll('ul li');
+      //var datos = document.querySelector(".datos");
       await window.webln.enable();
       const info = await window.webln.getInfo();
       const nodeBalance = await window.webln.request("walletbalance");
@@ -79,20 +80,20 @@ function Chat({ socket, username, room }) {
       var room = rm;
       console.log(info);
       for (var i = 0; i < listaElementos.length; i++) {
-        if (i === 0) {
+        if (i == 0) {
           listaElementos[i].textContent = `Node's alias: ${alias}`
-        } else if (i === 1) {
+        } else if (i == 1) {
           listaElementos[i].textContent = `Public Key: ${pubkey}`
-        } else if (i === 2) {
+        } else if (i == 2) {
           listaElementos[i].textContent = `Nickname: ${name}`
-        } else if (i === 3) {
+        } else if (i == 3) {
           listaElementos[i].textContent = `Room Number: ${room}`
-        } else if (i === 4) {
+        } else if (i == 4) {
           listaElementos[i].textContent = `Saldo: ${nodeBalance.total_balance} sats`
         }
       }
-    }
 
+    }
     getInformation();
   }
 

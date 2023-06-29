@@ -5,8 +5,10 @@ import Chat from "./Chat";
 import Conversations from "./Conversations";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const socket = io.connect("http://localhost:3001");
 export var nombre, rm;
+
 function App() {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
@@ -23,6 +25,10 @@ function App() {
     nombre = username;
     rm = room;
   };
+
+
+
+  
 
   return (
     <div className="d-flex justify-content-center align-items-center">
