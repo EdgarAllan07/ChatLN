@@ -540,6 +540,7 @@ body {
     width: auto;
     max-width: 80%;
     color: var(--text-dark);
+    white-space: initial;
 
     &-wrapper {
         margin: 0 12px;
@@ -551,6 +552,11 @@ body {
             opacity: 0.6;
         }
     }
+}
+
+.message-box p {
+    word-wrap: break-word;
+    max-width: 500px;
 }
 
 .app-right {

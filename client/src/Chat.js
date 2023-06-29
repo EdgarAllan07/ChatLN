@@ -77,7 +77,7 @@ function Chat({ socket, username, room }) {
                     <p>{messageContent.author}</p>
                   </span>
                   <div className="message-box">
-                    {messageContent.message}
+                    <p>{messageContent.message}</p>
                   </div>
                   <span className="message-box-details">
                     <p>{messageContent.time}</p>
