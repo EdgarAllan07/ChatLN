@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const socket = io.connect("http://localhost:3001");
 export var nombre, rm;
-export var usuarios = [];
+
 function App() {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
@@ -23,7 +23,7 @@ function App() {
     rm = room;
   };
 
-  usuarios.push(username);
+
 
   
 

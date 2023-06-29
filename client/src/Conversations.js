@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { rm } from "./App"
-import {usuarios} from "./App";
+
 function Conversations({ username, socket }) {
     //Poniendo datos pubkey,Room y todo eso
     const Cuadro = () => {
@@ -34,7 +34,7 @@ function Conversations({ username, socket }) {
     
         }
         getInformation();
-        console.log('Usuarios:', usuarios);
+        
     }
       }
 
