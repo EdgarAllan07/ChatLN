@@ -64,11 +64,12 @@ function Chat({ socket, username, room }) {
       //var datos = document.querySelector(".datos");
         await window.webln.enable();
         const info = await window.webln.getInfo();
-        const nodeBalance = await window.webln.request("walletbalance");
+        const nodeBalance = await window.webln.request("channelbalance");
         var alias= info.node.alias
         var pubkey = info.node.pubkey
         var name = nombre
         var room = rm;
+        console.log(nodeBalance.total_balance)
         console.log(info);
         for(var i=0; i<listaElementos.length;i++){
             if(i == 0){
@@ -80,7 +81,7 @@ function Chat({ socket, username, room }) {
             }else if(i == 3){
               listaElementos[i].textContent = `Room Number: ${room}`
             }else if(i == 4){
-              listaElementos[i].textContent = `Saldo: ${nodeBalance.total_balance} sats`
+              listaElementos[i].textContent = `Saldo: ${nodeBalance.local_balance.sat} sats`
             }
         }
         
