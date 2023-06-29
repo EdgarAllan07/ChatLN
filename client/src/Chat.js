@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import QRCode from 'qrcode';
 import ScrollToBottom from "react-scroll-to-bottom";
 import './index.scss';
 import { DropdownItem, DropdownMenu, UncontrolledDropdown, DropdownToggle } from 'reactstrap';
@@ -17,7 +18,6 @@ const showUp = () => {
   document.querySelector('.Mostrar').style.display = 'block';
 }
 
-
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -28,10 +28,8 @@ function Chat({ socket, username, room }) {
         room: room,
         author: username,
         message: currentMessage,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+        qrCodeURL: currentMessage.startsWith("lnb") ? await generateQRCode(currentMessage) : null,
       };
 
       await socket.emit("send_message", messageData);
@@ -39,15 +37,25 @@ function Chat({ socket, username, room }) {
       setCurrentMessage("");
     }
   };
-  //Creando el bolt11 de pago
+
+  const generateQRCode = async (message) => {
+    try {
+      const url = await QRCode.toDataURL(message);
+      return url;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  // Creando el bolt11 de pago
   const createInvoice = async () => {
     await window.webln.enable();
     const invoice = await window.webln.makeInvoice({
       amount: "",
     });
-    setCurrentMessage(invoice.paymentRequest)
-
-  }
+    setCurrentMessage(invoice.paymentRequest);
+  };
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
@@ -59,10 +67,9 @@ function Chat({ socket, username, room }) {
     var cuadro = document.querySelector(".cuadro-texto")
     cuadro.classList.toggle("active");
 
-    //Creando el getInfo o la informacion del nodo junto con el usuario y numeor de room
+    // Creando el getInfo o la informacion del nodo junto con el usuario y numero de room
     async function getInformation() {
       const listaElementos = document.querySelectorAll('ul li');
-      //var datos = document.querySelector(".datos");
       await window.webln.enable();
       const info = await window.webln.getInfo();
       const nodeBalance = await window.webln.request("walletbalance");
@@ -72,44 +79,53 @@ function Chat({ socket, username, room }) {
       var room = rm;
       console.log(info);
       for (var i = 0; i < listaElementos.length; i++) {
-        if (i == 0) {
+        if (i === 0) {
           listaElementos[i].textContent = `Node's alias: ${alias}`
-        } else if (i == 1) {
+        } else if (i === 1) {
           listaElementos[i].textContent = `Public Key: ${pubkey}`
-        } else if (i == 2) {
+        } else if (i === 2) {
           listaElementos[i].textContent = `Nickname: ${name}`
-        } else if (i == 3) {
+        } else if (i === 3) {
           listaElementos[i].textContent = `Room Number: ${room}`
-        } else if (i == 4) {
+        } else if (i === 4) {
           listaElementos[i].textContent = `Saldo: ${nodeBalance.total_balance} sats`
         }
       }
-
     }
+
     getInformation();
   }
-
 
   return (
     <div className="app-main">
       <div className="chat-wrapper">
         <ScrollToBottom>
-          {messageList.map((messageContent) => {
+          {messageList.map((messageContent, index) => {
             return (
-              <div className={username === messageContent.author ? "message-wrapper" : "message-wrapper reverse"}
+              <div
+                className={username === messageContent.author ? "message-wrapper" : "message-wrapper reverse"}
                 id={username === messageContent.author ? "you" : "other"}
+                key={index}
               >
                 <img
                   className="message-pp"
                   src="https://images.unsplash.com/photo-1587080266227-677cc2a4e76e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80"
                   alt="profile-pic"
                 />
+
                 <div className="message-box-wrapper">
                   <span className="message-box-details">
                     <p>{messageContent.author}</p>
                   </span>
                   <div className="message-box">
                     <p>{messageContent.message}</p>
+                    {messageContent.qrCodeURL && (
+                      <img
+                        className="message-qr"
+                        src={messageContent.qrCodeURL}
+                        alt="QR code"
+                      />
+                    )}
                   </div>
                   <span className="message-box-details">
                     <p>{messageContent.time}</p>
@@ -119,27 +135,16 @@ function Chat({ socket, username, room }) {
             );
           })}
         </ScrollToBottom>
-
       </div>
       <div className="chat-input-wrapper">
         <div className="d-flex p-5 justify-content-center">
-          <UncontrolledDropdown
-            className="me-2"
-            direction="up"
-          >
-            <DropdownToggle
-              caret
-              color="primary"
-            >
+          <UncontrolledDropdown className="me-2" direction="up">
+            <DropdownToggle caret color="primary">
               Wallet
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem onClick={createInvoice}>
-                Invoice
-              </DropdownItem>
-              <DropdownItem onClick={showPopup}>
-                Pay
-              </DropdownItem>
+              <DropdownItem onClick={createInvoice}>Invoice</DropdownItem>
+              <DropdownItem onClick={showPopup}>Pay</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>
@@ -164,9 +169,9 @@ function Chat({ socket, username, room }) {
               height="20"
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               className="feather feather-smile"
               viewBox="0 0 24 24"
             >
@@ -176,10 +181,11 @@ function Chat({ socket, username, room }) {
             </svg>
           </button>
         </div>
-        <button className="chat-send-btn" onClick={sendMessage}>Send</button>
+        <button className="chat-send-btn" onClick={sendMessage}>
+          Send
+        </button>
       </div>
     </div>
-
   );
 }
 

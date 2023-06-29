@@ -57,7 +57,7 @@ function App() {
         </div>
       ) : (
         <div className="app-container">
-          <Conversations socket={socket} username={username} />
+          <Conversations socket={socket} username={username}  room={room} />
           <Chat socket={socket} username={username} room={room} Style="height: 80%" />
           {/* <Operations /> */}
         </div>

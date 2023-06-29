@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
 
-function Conversations({ username, socket }) {
-    const [messageList, setMessageList] = useState([]);
+function Conversations({ username, socket, room }) {
+    const [activeUsers, setActiveUsers] = useState([]);
+    useEffect(() => {
+        // Obtener la lista de usuarios activos en la sala
+        socket.emit("getActiveUsers", room);
+    
+        // Escuchar el evento de actualización de usuarios activos
+        socket.on("activeUsersUpdate", (users) => {
+          setActiveUsers(users);
+        });
+    
+        // Limpiar los listeners al desmontar el componente
+        return () => {
+          socket.off("activeUsersUpdate");
+        };
+      }, [socket, room]);
+
     return (
 
         <div class="app-left">
@@ -58,39 +73,15 @@ function Conversations({ username, socket }) {
                 <ul class="chat-list active">
                     <li class="chat-list-item active">
                         <img
-                            src="https://images.unsplash.com/photo-1587080266227-677cc2a4e76e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+                            src="https://api-private.atlassian.com/users/2dff6b099a5ac2f4baab1bb770899247/avatar"
                             alt="chat"
                         />
-                        <span class="chat-list-name">Dwight Schrute</span>
+                        <span class="chat-list-name">
+
+                        </span>
                     </li>
-                    <li class="chat-list-item">
-                        <img
-                            src="https://images.unsplash.com/photo-1566465559199-50c6d9c81631?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">Andy Bernard</span>
-                    </li>
-                    <li class="chat-list-item">
-                        <img
-                            src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2552&q=80"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">Michael Scott</span>
-                    </li>
-                    <li class="chat-list-item">
-                        <img
-                            src="https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=934&q=80"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">Holy Flax</span>
-                    </li>
-                    <li class="chat-list-item">
-                        <img
-                            src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">Jim Halpert</span>
-                    </li>
+                    
+                 
                 </ul>
             </div>
         </div>
