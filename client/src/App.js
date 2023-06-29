@@ -3,10 +3,9 @@ import io from "socket.io-client";
 import { useState } from "react";
 import Chat from "./Chat";
 import Conversations from "./Conversations";
-import Operations from "./Operations";
 
 const socket = io.connect("http://localhost:3001");
-
+export var nombre, rm;
 function App() {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
@@ -17,6 +16,8 @@ function App() {
       socket.emit("join_room", room);
       setShowChat(true);
     }
+    nombre = username;
+    rm = room;
   };
 
   return (
@@ -46,7 +47,7 @@ function App() {
         </div>
       ) : (
         <div className="app-container">
-          <Conversations socket={socket} />
+          <Conversations socket={socket} username={username} />
           <Chat socket={socket} username={username} room={room} Style="height: 80%" />
           {/* <Operations /> */}
         </div>
