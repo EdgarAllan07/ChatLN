@@ -24,12 +24,12 @@ function Conversations({ username, socket }) {
             if (i == 0) {
               listaElementos[i].textContent = `Room Number: ${room}`
             } else if (i == 1) {
-                listaElementos[i].textContent = `Saldo: ${nodeBalance.local_balance.sat} sats`
+                listaElementos[i].textContent = `Balance: ${nodeBalance.local_balance.sat} sats`
             }  else if (i == 2) {
                 listaElementos[i].textContent = `Node's alias: ${alias}`
-            } else if (i == 3) {
-                listaElementos[i].textContent = `Public Key: ${pubkey}`
-            }
+            } else if(i == 3){
+                listaElementos[i].textContent = `Pubkey: ${pubkey}`
+              }
           }
     
         }
