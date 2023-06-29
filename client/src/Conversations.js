@@ -1,7 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
+import { rm } from "./App"
 
 function Conversations({ username, socket }) {
+    //Poniendo datos pubkey,Room y todo eso
+    const Cuadro = () => {
+        var cuadro = document.querySelector(".cuadro-texto")
+        cuadro.classList.toggle("active");
+    
+        //Creando el getInfo o la informacion del nodo junto con el usuario y numeor de room
+        async function getInformation() {
+          const listaElementos = document.querySelectorAll('ul li');
+          //var datos = document.querySelector(".datos");
+          await window.webln.enable();
+          const info = await window.webln.getInfo();
+          const nodeBalance = await window.webln.request("channelbalance");
+          var alias = info.node.alias
+          var pubkey = info.node.pubkey
+          var room = rm;
+          console.log(info);
+          for (var i = 0; i < listaElementos.length; i++) {
+            if (i == 0) {
+              listaElementos[i].textContent = `Room Number: ${room}`
+            } else if (i == 1) {
+                listaElementos[i].textContent = `Saldo: ${nodeBalance.local_balance.sat} sats`
+            }  else if (i == 2) {
+                listaElementos[i].textContent = `Node's alias: ${alias}`
+            } else if (i == 3) {
+                listaElementos[i].textContent = `Public Key: ${pubkey}`
+            }
+          }
+    
+        }
+        getInformation();
+      }
+
     const [messageList, setMessageList] = useState([]);
     return (
 
@@ -34,6 +67,15 @@ function Conversations({ username, socket }) {
                     {username}
 
                 </div>
+                <button class="btn btn-primary" onClick={Cuadro}>Info</button>
+                <div class="cuadro-texto">
+            <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
             </div>
             <div class="chat-list-wrapper">
                 <div class="chat-list-header">
