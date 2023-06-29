@@ -41,6 +41,7 @@
   height: 3rem;
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
+  color: white;
 }
 
 .popup button {
@@ -86,6 +87,7 @@
   width: 90%;
   height: 2rem;
   margin-bottom: 1rem;
+  
 }
 
 .Mostrar button {
