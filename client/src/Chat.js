@@ -7,6 +7,7 @@ import {rm} from "./App"
    const showPopup = () =>{
     document.querySelector('.overlay').style.display = 'block';
     document.querySelector('.popup').style.display = 'block';
+    document.getElementById('f11').value = ""; 
   }
 
   const showUp = ()=> {
@@ -52,10 +53,11 @@ function Chat({ socket, username, room }) {
     });
   }, [socket]);
 
+
   const Cuadro = ()=>{
     var cuadro = document.querySelector(".cuadro-texto")
     cuadro.classList.toggle("active");
-
+    if (cuadro.classList.contains("active")) {
     //Creando el getInfo o la informacion del nodo junto con el usuario y numeor de room
     async function getInformation(){
       const listaElementos = document.querySelectorAll('ul li');
@@ -83,7 +85,12 @@ function Chat({ socket, username, room }) {
         }
         
     }
+    
     getInformation();
+  }
+    
+
+    
   }
 
   return (
