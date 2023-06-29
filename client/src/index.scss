@@ -318,17 +318,19 @@ body {
         margin: 0;
         border-radius: 6px;
         display: flex;
-        align-items: center;
         margin-bottom: 10px;
         position: relative;
+        text-align: center;
+        align-items: center;
         cursor: pointer;
 
         &.active {
             background-color: var(--box-color);
-
+            text-align: center;
             span {
                 color: var(--text-dark);
                 font-weight: 700;
+                font-size: medium;
             }
         }
 

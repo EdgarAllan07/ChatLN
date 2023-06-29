@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./index.scss";
 
 function Conversations({ username, socket, room }) {
-    const [activeUsers, setActiveUsers] = useState([]);
+    const [messageList, setMessageList] = useState([]);
+    const [userList, setUserList] = useState([]);
+
     useEffect(() => {
-        // Obtener la lista de usuarios activos en la sala
-        socket.emit("getActiveUsers", room);
-    
-        // Escuchar el evento de actualización de usuarios activos
-        socket.on("activeUsersUpdate", (users) => {
-          setActiveUsers(users);
+        // Escucha el evento "user_list" del servidor
+        socket.on("user_list", (data) => {
+            setUserList(data);
         });
-    
-        // Limpiar los listeners al desmontar el componente
+
+        // Limpia el listener cuando el componente se desmonta
         return () => {
-          socket.off("activeUsersUpdate");
+            socket.off("user_list");
         };
-      }, [socket, room]);
+    }, [socket]);
+
 
     return (
 
@@ -52,7 +52,7 @@ function Conversations({ username, socket, room }) {
             </div>
             <div class="chat-list-wrapper">
                 <div class="chat-list-header">
-                    Active Users <span class="c-number">4</span>
+                    Room's users <span class="c-number">{room}</span>
                     <svg
                         class="list-header-arrow"
                         xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +60,9 @@ function Conversations({ username, socket, room }) {
                         height="16"
                         fill="none"
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="3"
                         className="feather feather-chevron-up"
                         viewBox="0 0 24 24"
                     >
@@ -71,17 +71,17 @@ function Conversations({ username, socket, room }) {
                     </svg>
                 </div>
                 <ul class="chat-list active">
-                    <li class="chat-list-item active">
-                        <img
-                            src="https://api-private.atlassian.com/users/2dff6b099a5ac2f4baab1bb770899247/avatar"
-                            alt="chat"
-                        />
-                        <span class="chat-list-name">
+                    {userList.map((user) => (
+                        <li key={user} className="chat-list-item active">
+                            <img
+                                src="https://api-private.atlassian.com/users/2dff6b099a5ac2f4baab1bb770899247/avatar"
+                                alt="chat"
+                            />
+                            <span className="chat-list-name">{user.username}</span>
+                        </li>
+                    ))}
 
-                        </span>
-                    </li>
-                    
-                 
+
                 </ul>
             </div>
         </div>
