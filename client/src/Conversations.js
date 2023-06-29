@@ -7,7 +7,8 @@ function Conversations({ username, socket }) {
     const Cuadro = () => {
         var cuadro = document.querySelector(".cuadro-texto")
         cuadro.classList.toggle("active");
-    
+        
+        if (cuadro.classList.contains("active")){
         //Creando el getInfo o la informacion del nodo junto con el usuario y numeor de room
         async function getInformation() {
           const listaElementos = document.querySelectorAll('ul li');
@@ -33,6 +34,7 @@ function Conversations({ username, socket }) {
     
         }
         getInformation();
+    }
       }
 
     const [messageList, setMessageList] = useState([]);
