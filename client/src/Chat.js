@@ -83,25 +83,35 @@ function Chat({ socket, username, room }) {
 
       </div>
       <div className="chat-input-wrapper">
-        <button className="chat-attachment-btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            className="feather feather-paperclip"
-            viewBox="0 0 24 24"
-          >
-            <defs />
-            <path
-              d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"
-            />
-          </svg>
-        </button>
+        <div
+          style={{
+            border: '1px solid #000',
+            height: 100,
+            overflow: 'hidden',
+            padding: '8px',
+            width: 300
+          }}
+        >
+          Container with overflow: hidden.
+          <br />
+          Last clicked: null
+          <Dropdown toggle={function noRefCheck() { }}>
+            <DropdownToggle caret>
+              Dropdown
+            </DropdownToggle>
+            <DropdownMenu container="body">
+              <DropdownItem onClick={function noRefCheck() { }}>
+                Action 1
+              </DropdownItem>
+              <DropdownItem onClick={function noRefCheck() { }}>
+                Action 2
+              </DropdownItem>
+              <DropdownItem onClick={function noRefCheck() { }}>
+                Action 3
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
         <div className="input-wrapper">
           <input
             type="text"
