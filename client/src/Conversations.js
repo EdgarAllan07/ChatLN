@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
+import QRCode from "qrcode";
 import { rm } from "./App"
 
 function Conversations({ username, socket,room }) {
@@ -18,7 +19,52 @@ function Conversations({ username, socket,room }) {
         };
     }, [socket]);
 
+  //Poniendo datos pubkey,Room y todo eso
+  const Cuadro = () => {
+    var cuadro = document.querySelector(".cuadro-texto")
+    cuadro.classList.toggle("active");
+    
+    if (cuadro.classList.contains("active")){
+    //Creando el getInfo o la informacion del nodo junto con el usuario y numeor de room
+    async function getInformation() {
+      const listaElementos = document.querySelectorAll('ul li');
+      //var datos = document.querySelector(".datos");
+      await window.webln.enable();
+      const info = await window.webln.getInfo();
+      const nodeBalance = await window.webln.request("channelbalance");
+      var alias = info.node.alias
+      var pubkey = info.node.pubkey
+      var room = rm;
+      console.log(info);
+      for (var i = 0; i < listaElementos.length; i++) {
+        if (i == 0) {
+          listaElementos[i].textContent = `Room Number: ${room}`
+        } else if (i == 1) {
+            listaElementos[i].textContent = `Balance: ${nodeBalance.local_balance.sat} sats`
+        }  else if (i == 2) {
+            listaElementos[i].textContent = `Node's alias: ${alias}`
+        } else if(i == 3){
+            const truncatedPubkey = pubkey.substring(0, 10) + "...";
+            listaElementos[i].textContent = `Pubkey: ${truncatedPubkey}`;
+            const qrContainer = document.querySelector(".qr-container");
+            qrContainer.innerHTML = ""; // Limpiar el contenedor del QR previo
 
+            // Generar el QR y agregarlo al contenedor
+            const qrCode = await QRCode.toDataURL(pubkey, { width: 100 });
+            const qrImage = document.createElement("img");
+            qrImage.src = qrCode;
+            qrImage.alt = "Pubkey QR";
+            qrContainer.appendChild(qrImage);
+          }
+      }
+
+    }
+    getInformation();
+    
+}
+
+
+  }
     return (
 
         <div class="app-left">
@@ -43,21 +89,22 @@ function Conversations({ username, socket,room }) {
             </div>
             <div class="app-profile-box">
                
-            <img src="https://api-private.atlassian.com/users/2dff6b099a5ac2f4baab1bb770899247/avatar"/>
-                <div class="app-profile-box-name">
-                    {username}
-
-                </div>
-                <button class="btn btn-primary" onClick={Cuadro}><i class="fa-solid fa-circle-info fa-lg"></i></button>
-                <div class="cuadro-texto">
-            <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-            </div>
+               <img src="https://images.vexels.com/media/users/3/263623/isolated/preview/d262ff89785ec8364e39438250c1804f-personaje-de-dab-de-astronauta-de-bitcoin.png"/>
+                   <div class="app-profile-box-name">
+                       {username}
+   
+                   </div>
+                   <button class="btn btn-primary" onClick={Cuadro}><i class="fa-solid fa-circle-info fa-lg"></i></button>
+                   <div class="cuadro-texto">
+               <ul>
+             <li></li>
+             <li></li>
+             <li></li>
+             <li></li>
+             <div className="qr-container"></div>
+           </ul>
+         </div>
+               </div>
             <div class="chat-list-wrapper">
                 <div class="chat-list-header">
                     Room's users <span class="c-number">{room}</span>
@@ -81,10 +128,7 @@ function Conversations({ username, socket,room }) {
                 <ul class="chat-list active">
                     {userList.map((user) => (
                         <li key={user} className="chat-list-item active">
-                            <img
-                                src="https://api-private.atlassian.com/users/2dff6b099a5ac2f4baab1bb770899247/avatar"
-                                alt="chat"
-                            />
+                              <img src="https://images.vexels.com/media/users/3/263623/isolated/preview/d262ff89785ec8364e39438250c1804f-personaje-de-dab-de-astronauta-de-bitcoin.png"/>
                             <span className="chat-list-name">{user.username}</span>
                         </li>
                     ))}

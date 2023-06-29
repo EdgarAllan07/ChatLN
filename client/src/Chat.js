@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
-import QRCode from 'qrcode';
+import QRCode from "qrcode";
+import Swal from "sweetalert";
 import ScrollToBottom from "react-scroll-to-bottom";
-import './index.scss';
-import { DropdownItem, DropdownMenu, UncontrolledDropdown, DropdownToggle } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { nombre } from "./App"
-
+import "./index.scss";
+import { DropdownItem, DropdownMenu, UncontrolledDropdown, DropdownToggle } from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { nombre } from "./App";
 
 // Función para mostrar la ventana emergente
 const showPopup = () => {
-  document.querySelector('.overlay').style.display = 'block';
-  document.querySelector('.popup').style.display = 'block';
-}
+  document.querySelector(".overlay").style.display = "block";
+  document.querySelector(".popup").style.display = "block";
+};
 
-const showUp = () => {
-  document.querySelector('.overlay').style.display = 'block';
-  document.querySelector('.Mostrar').style.display = 'block';
-}
+// Función para ocultar la ventana emergente
+const hidePopup = () => {
+  document.querySelector(".overlay").style.display = "none";
+  document.querySelector(".popup").style.display = "none";
+};
 
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -63,39 +64,34 @@ function Chat({ socket, username, room }) {
     });
   }, [socket]);
 
-  const Cuadro = () => {
-    var cuadro = document.querySelector(".cuadro-texto")
-    cuadro.classList.toggle("active");
-
-    //Creando el getInfo o la informacion del nodo junto con el usuario y numeor de room
-    async function getInformation() {
-      const listaElementos = document.querySelectorAll('ul li');
-      //var datos = document.querySelector(".datos");
-      await window.webln.enable();
-      const info = await window.webln.getInfo();
-      const nodeBalance = await window.webln.request("walletbalance");
-      var alias = info.node.alias
-      var pubkey = info.node.pubkey
-      var name = nombre
-      var room = rm;
-      console.log(info);
-      for (var i = 0; i < listaElementos.length; i++) {
-        if (i == 0) {
-          listaElementos[i].textContent = `Node's alias: ${alias}`
-        } else if (i == 1) {
-          listaElementos[i].textContent = `Public Key: ${pubkey}`
-        } else if (i == 2) {
-          listaElementos[i].textContent = `Nickname: ${name}`
-        } else if (i == 3) {
-          listaElementos[i].textContent = `Room Number: ${room}`
-        } else if (i == 4) {
-          listaElementos[i].textContent = `Saldo: ${nodeBalance.total_balance} sats`
-        }
-      }
-
+  // Enviar el pago
+  const sentPayment = async () => {
+    var cond = "";
+    if (typeof window.webln === "undefined") {
+      return alert("No WebLN available.");
     }
-    getInformation();
-  }
+    try {
+      await window.webln.enable();
+      var factura11 = document.getElementById("f11").value;
+      const invoice = factura11;
+      const result = await window.webln.sendPayment(invoice);
+      cond = result.preimage;
+      console.log(result);
+      if (result.preimage !== "") {
+        Swal({
+          title: "Transacción completada",
+          text: "¡La transacción se ha completado con éxito!",
+          icon: "success",
+          button: "Cerrar",
+        }).then(() => {
+          hidePopup();
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    cond = "";
+  };
 
   return (
     <div className="app-main">
@@ -110,10 +106,10 @@ function Chat({ socket, username, room }) {
               >
                 <img
                   className="message-pp"
-                  src="https://images.unsplash.com/photo-1587080266227-677cc2a4e76e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80"
-                  alt="profile-pic"
+                  src="https://images.vexels.com/media/users/3/263623/isolated/preview/d262ff89785ec8364e39438250c1804f-personaje-de-dab-de-astronauta-de-bitcoin.png"
+                                    alt="profile-pic"
                 />
-
+              
                 <div className="message-box-wrapper">
                   <span className="message-box-details">
                     <p>{messageContent.author}</p>
@@ -121,11 +117,7 @@ function Chat({ socket, username, room }) {
                   <div className="message-box">
                     <p>{messageContent.message}</p>
                     {messageContent.qrCodeURL && (
-                      <img
-                        className="message-qr"
-                        src={messageContent.qrCodeURL}
-                        alt="QR code"
-                      />
+                      <img className="message-qr" src={messageContent.qrCodeURL} alt="QR code" />
                     )}
                   </div>
                   <span className="message-box-details">
@@ -184,6 +176,24 @@ function Chat({ socket, username, room }) {
         </div>
         <button className="chat-send-btn" onClick={sendMessage}>
           Send
+        </button>
+      </div>
+
+      {/* Ventana emergente */}
+      <div className="overlay" onClick={hidePopup}></div>
+      <div className="popup">
+        <h3>Please enter the payment's Invoice</h3>
+        <input
+          type="text"
+          id="f11"
+          placeholder="EJ: lnbcrt500u1pjfh90wpp5cmk5fpxr0aav037mz5nnxg0phz"
+          required
+        />
+        <button id="enviar" type="button" onClick={sentPayment}>
+          Send
+        </button>
+        <button id="Cerrar" onClick={hidePopup}>
+          Close
         </button>
       </div>
     </div>
